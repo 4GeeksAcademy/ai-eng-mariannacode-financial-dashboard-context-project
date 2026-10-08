@@ -49,6 +49,33 @@ def test_metrics_endpoint_respects_date_filters():
     assert all(item["create_date"] == first_date for item in payload)
 
 
+def test_metrics_endpoint_returns_financial_movement_contract():
+    response = client.get("/api/metrics")
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload
+    movement = payload[0]
+    assert set(movement) == {
+        "create_date",
+        "amount",
+        "operation_type",
+        "category",
+        "business_type",
+    }
+    assert isinstance(movement["create_date"], str)
+    assert isinstance(movement["amount"], (int, float))
+    assert movement["operation_type"] in {"income", "outcome"}
+    assert movement["category"] in {
+        "suppliers",
+        "sales",
+        "operational",
+        "administrative",
+        "others",
+    }
+    assert movement["business_type"] in {"B2B", "B2C"}
+
+
 def test_b2b_endpoint_only_returns_b2b_records():
     response = client.get("/api/metrics/b2b")
 
