@@ -15,6 +15,10 @@
 - Dependencias declaradas en [backend/requirements.txt](../backend/requirements.txt); no tienen versiones fijadas.
 - Pruebas: Pytest y `TestClient` en `backend/tests`.
 
+## Skills de agente
+
+- [.agents/skills](../.agents/skills): comunitarias, gestionadas con `npx skills` y [skills-lock.json](../skills-lock.json); [.skills](../.skills): internas del repo, como [dashboard-pre-merge-check](../.skills/dashboard-pre-merge-check/SKILL.md). Procedencia y uso registrados en los commits de `feature/agent-skills` y [progress.md](progress.md).
+
 ## Desarrollo local
 
 [docker-compose.yml](../docker-compose.yml) define los servicios `frontend` y `backend`. El backend publica el puerto 8000 y el frontend el 5173. El proxy Vite usa `host.docker.internal:8000`; Compose declara `host.docker.internal:host-gateway` para ese nombre. Esta ruta se añadió para resolver el timeout de conexión entre IPs de contenedores observado en este entorno.

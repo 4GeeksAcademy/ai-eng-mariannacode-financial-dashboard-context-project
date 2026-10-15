@@ -8,7 +8,7 @@
 
 ## Verificación registrada
 
-- Vitest: 8 tests pasaron. Pytest: 16 tests pasaron. Build TypeScript/Vite y ESLint pasaron; el build mostró una advertencia por un chunk mayor a 500 kB. Pytest informó una advertencia de deprecación de Starlette/httpx.
+- Referencia actual: frontend **9 tests**, backend **28 tests**, con cero fallos. Build frontend correcto y sin aviso de chunk >500 kB tras carga diferida: chunk principal de 585 kB a 188 kB. Evidencia: commits `05a1cd3`, `77dc756` y `287a060`; resumen en [progress.md](progress.md). El aviso `StarletteDeprecationWarning` de httpx ya existía. Actualizar esta referencia al añadir tests.
 - `/api/metrics` a través del puerto 5173 respondió HTTP 200 y devolvió 360 movimientos con las cinco claves esperadas y comprobaciones de datos válidas. Los detalles y comandos están en [verification.md](../verification.md).
 - **Revisión visual manual de la usuaria:** confirmó que el dashboard muestra importes y gráficos sin el error de carga. No es una comprobación automatizada.
 
@@ -16,4 +16,4 @@
 
 - En este workspace, `npm ci` no puede escribir en `frontend/node_modules`: el directorio es propiedad de `root:root` con modo `755`. No se ampliaron permisos; las pruebas se ejecutaron usando las dependencias del contenedor frontend.
 - La validación funcional solicitada está completada, incluida la revisión visual confirmada por la usuaria; no queda una comprobación de fase 3 pendiente en `verification.md`.
-- El commit de los cambios pendientes sigue sin hacerse.
+- El trabajo de skills está registrado en los commits de `feature/agent-skills`; [progress.md](progress.md) detalla cambios, decisiones y prueba real del checklist. Esto no certifica que el árbol de trabajo esté limpio ni que la rama esté lista para merge.
