@@ -15,6 +15,19 @@ import {
 } from "@/lib/financial-utils";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "";
+const FINANCIAL_DATA_ERROR_MESSAGE =
+  "Unable to load financial data. Please check the backend API.";
+
+export function FinancialDataError({ message }: { message: string }) {
+  return (
+    <div
+      role="alert"
+      className="rounded-lg border border-destructive/30 bg-destructive/10 p-4 text-sm text-destructive-foreground"
+    >
+      {message}
+    </div>
+  );
+}
 
 async function fetchFinancialData(): Promise<FinancialMovement[]> {
   const response = await fetch(`${API_BASE_URL}/api/metrics`);
@@ -39,9 +52,7 @@ function App() {
         setPeriod(formatPeriodLabel(movements));
       })
       .catch(() => {
-        setError(
-          "No se pudo cargar la informacion financiera. Revisa la API de backend.",
-        );
+        setError(FINANCIAL_DATA_ERROR_MESSAGE);
       })
       .finally(() => {
         setLoading(false);
@@ -55,9 +66,7 @@ function App() {
           <DashboardHeader period={period} />
 
           {error ? (
-            <div className="rounded-lg border border-destructive/30 bg-destructive/10 p-4 text-sm text-destructive-foreground">
-              {error}
-            </div>
+            <FinancialDataError message={error} />
           ) : null}
 
           <section aria-label="Key performance indicators">
